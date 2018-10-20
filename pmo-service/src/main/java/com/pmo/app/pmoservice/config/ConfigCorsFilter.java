@@ -43,18 +43,17 @@ public class ConfigCorsFilter implements Filter{
         System.out.println("PATH :" + request.getRemoteAddr());
         System.out.println("PATH :" + request.getContextPath());
 
-        //
+
         Enumeration<String> headerNames = request.getHeaderNames();
         Collection<String> headerNamesRes = response.getHeaderNames();
-        // System.out.println("REQUEST --- >");
-        //
+
         while (headerNames.hasMoreElements()) {
             String headerName = headerNames.nextElement();
             System.out.print("Header : " + headerName);
             String headerValue = request.getHeader(headerName);
             System.out.print(" (" + headerValue + ")\n");
         }
-        //
+
         System.out.println("RESPONSE :");
         for (String headerName : headerNamesRes) {
             System.out.print("Header : " + headerName);
@@ -65,7 +64,7 @@ public class ConfigCorsFilter implements Filter{
         HttpSession session = request.getSession(false);
         if (session != null) {
             System.out.println("sess = " + session.getAttribute("TOKEN"));
-            //
+
             Enumeration<String> hh = session.getAttributeNames();
             while (hh.hasMoreElements()) {
                 String headerName = hh.nextElement();

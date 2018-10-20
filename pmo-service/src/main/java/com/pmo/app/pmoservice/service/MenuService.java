@@ -20,44 +20,39 @@ public class MenuService {
     @Autowired
     MenuRoleRepository menuRoleRepository;
 
-    public List<MenuActive> listMenuActive(){
-        List<Menu> all = menuRepository.findMenuByLevelMenu(1);
-        List<MenuActive> allDetails = new ArrayList<>();
-
-        for (Menu menu : all){
-            MenuActive menuActive = new MenuActive(menu);
-            menuActive.setSub(menuRepository.findMenuByParentId(menu.getId()));
-            allDetails.add(menuActive);
+    public List<MenuActive> listMenuActive() {
+        List<Menu> all =  menuRepository.findMenuByLevelMenu(1);
+        List<MenuActive> allDetail = new ArrayList<>();
+        for (Menu menu : all) {
+            MenuActive md = new MenuActive(menu);
+            md.setSub(menuRepository.findMenuByParentId(menu.getId()));
+            allDetail.add(md);
         }
-        return allDetails;
+        return allDetail;
     }
 
-    public List<MenuActive> listMenu(String role){
+    public List<MenuActive> listMenu(String role) {
         List<Menu> all = menuRepository.joinMenu(role);
-        List<MenuActive> allDetails = new ArrayList<>();
-
-        for (Menu menu : all){
-            if (menu.getLevelMenu() == 1){
-                List<MenuRole> lsMenuRole = menuRoleRepository
-                        .findMenuRoleByAccessIdAndParentId(role, menu.getId());
-                MenuActive menuActive = new MenuActive(menu);
-
-                if (lsMenuRole.size() > 0){
+        List<MenuActive> allDetail = new ArrayList<>();
+        for (Menu menu : all) {
+            if (menu.getLevelMenu() == 1) {
+                List<MenuRole> lsMenuRole = menuRoleRepository.findMenuRoleByAccessIdAndParentId(role, menu.getId());
+                MenuActive md = new MenuActive(menu);
+                if (lsMenuRole.size() > 0) {
                     List<Menu> lsMenuSub = new ArrayList<>();
-                    List<Menu> lsSubMenu = menuRepository.findMenuByParentId(menu.getParentId());
-
-                    for (Menu subMenu : lsSubMenu){
-                        for (MenuRole subTree : lsMenuRole){
-                            if (subMenu.getId().equalsIgnoreCase(subTree.getMenuId())){
-                                lsMenuSub.add(subMenu);
-                                menuActive.setSub(lsMenuSub);
+                    List<Menu> lsSubMenu = menuRepository.findMenuByParentId(menu.getId());
+                    for (Menu sub : lsSubMenu) {
+                        for (MenuRole subTree : lsMenuRole) {
+                            if(sub.getId().equalsIgnoreCase(subTree.getMenuId())){
+                                lsMenuSub.add(sub);
+                                md.setSub(lsMenuSub);
                             }
                         }
                     }
                 }
-                allDetails.add(menuActive);
+                allDetail.add(md);
             }
         }
-        return allDetails;
+        return allDetail;
     }
 }

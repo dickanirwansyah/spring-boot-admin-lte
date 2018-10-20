@@ -15,13 +15,13 @@ public class MenuActive extends Menu {
 
     public MenuActive(Menu menu){
         super();
-        this.setId(menu.getId());
         this.setActive(menu.getActive());
-        this.setClassStyle(menu.getClassStyle());
+        this.setId(menu.getId());
         this.setLevelMenu(menu.getLevelMenu());
         this.setMenuName(menu.getMenuName());
-        this.setPathName(menu.getPathName());
         this.setParentId(menu.getParentId());
+        this.setPathName(menu.getPathName());
+        this.setClassStyle(menu.getClassStyle());
         this.setMenuType(menu.getMenuType());
     }
 
