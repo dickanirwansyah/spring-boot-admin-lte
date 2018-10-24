@@ -1,3 +1,3 @@
-# Integrasi Spring Boot dengan coreUI Angular
+# Integrasi Spring Boot dengan Angular Admin LTE
 
-link template `https://coreui.io/angular/`
+link template frontend `https://github.com/dickanirwansyah/angular-admin-lte`
